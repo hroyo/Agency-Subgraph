@@ -1,0 +1,54 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Token
+    network: base-testnet
+    source:
+      address: "0x3ab76c5558ebe3D20b41188E08Ab655391CcF9Cc"
+      abi: Token
+      startBlock: 9033965
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - DelegateChanged
+        - DelegateVotesChanged
+        - Initialized
+        - MinterUpdated
+        - OwnerCanceled
+        - OwnerPending
+        - OwnerUpdated
+        - Transfer
+        - Upgraded
+      abis:
+        - name: Token
+          file: ./abis/Token.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: DelegateChanged(indexed address,indexed address,indexed address)
+          handler: handleDelegateChanged
+        - event: DelegateVotesChanged(indexed address,uint256,uint256)
+          handler: handleDelegateVotesChanged
+        - event: Initialized(uint256)
+          handler: handleInitialized
+        - event: MinterUpdated(address,bool)
+          handler: handleMinterUpdated
+        - event: OwnerCanceled(indexed address,indexed address)
+          handler: handleOwnerCanceled
+        - event: OwnerPending(indexed address,indexed address)
+          handler: handleOwnerPending
+        - event: OwnerUpdated(indexed address,indexed address)
+          handler: handleOwnerUpdated
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Upgraded(address)
+          handler: handleUpgraded
+      file: ./src/token.ts
