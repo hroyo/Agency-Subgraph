@@ -12,6 +12,8 @@ import {
   Upgraded as UpgradedEvent
 } from "../generated/Token/Token"
 import {
+  Token,
+  Agent,
   Approval,
   ApprovalForAll,
   DelegateChanged,
@@ -157,6 +159,20 @@ export function handleOwnerUpdated(event: OwnerUpdatedEvent): void {
 }
 
 export function handleTransfer(event: TransferEvent): void {
+  let token = Token.load(event.params.tokenId.toString());
+  if (!token) {
+    token = new Token(event.params.tokenId.toString());
+    token.tokenId = event.params.tokenId;
+    token.createdAtTimestamp = event.block.timestamp;
+  }
+  token.owner = event.params.to.toHexString();
+  token.save();
+
+  let agent = Agent.load(event.params.to.toHexString());
+  if (!agent) {
+    agent = new Agent(event.params.to.toHexString());
+    agent.save();
+  }
   let entity = new Transfer(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
@@ -170,6 +186,22 @@ export function handleTransfer(event: TransferEvent): void {
 
   entity.save()
 }
+
+// export function handleEntity(event: TransferEvent): void {
+//   let entity = new Transfer(
+//     event.transaction.hash.concatI32(event.logIndex.toI32())
+//   )
+//   entity.from = event.params.from
+//   entity.to = event.params.to
+//   entity.tokenId = event.params.tokenId
+
+//   entity.blockNumber = event.block.number
+//   entity.blockTimestamp = event.block.timestamp
+//   entity.transactionHash = event.transaction.hash
+
+//   entity.save()
+// }
+
 
 export function handleUpgraded(event: UpgradedEvent): void {
   let entity = new Upgraded(

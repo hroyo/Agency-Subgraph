@@ -1,8 +1,20 @@
 {
-  "base-testnet": {
+  "blast-testnet": {
     "Token": {
-      "address": "0x3ab76c5558ebe3D20b41188E08Ab655391CcF9Cc",
-      "startBlock": 9033965
+      "address": "0x7652b65457F08BfA9e7F725f544beb4Aac63A393",
+      "startBlock": 3403230
+    },
+    "Auction": {
+      "address": "0x0BCBb6516410D2596D7BBE825896912031Cc5042"
+    },
+    "Governor": {
+      "address": "0x3d93F9C66C7E117Fc2c0e41cba4321E9e85F8973"
+    },
+    "Treasury": {
+      "address": "0xF63D9e50d7f9843614E2461f39D5ae834Ae7BA8A"
+    },
+    "SoulboundToken": {
+      "address": "0x962A605cEE12C356B29edca3aC2145433Bcee40D"
     }
   }
 }

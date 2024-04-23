@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Token
@@ -29,7 +29,7 @@ dataSources:
         - Agent
       abis:
         - name: Token
-          file: ./abis/Token.json
+          file: Token/abis/Token.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -53,7 +53,7 @@ dataSources:
           handler: handleTransfer
         - event: Upgraded(address)
           handler: handleUpgraded
-      file: ./src/token.ts
+      file: Token/Token.wasm
   - kind: ethereum
     name: Auction
     network: blast-testnet
@@ -84,7 +84,7 @@ dataSources:
         - AuctionConfig
       abis:
         - name: Auction
-          file: ./abis/Auction.json
+          file: Auction/abis/Auction.json
       eventHandlers:
         - event: AuctionBid(uint256,address,uint256,bool,uint256)
           handler: handleAuctionBid
@@ -114,7 +114,7 @@ dataSources:
           handler: handleUnpaused
         - event: Upgraded(address)
           handler: handleUpgraded
-      file: ./src/auction.ts
+      file: Auction/Auction.wasm
   - kind: ethereum
     name: Governor
     network: blast-testnet
@@ -143,12 +143,9 @@ dataSources:
         - VoteCast
         - VotingDelayUpdated
         - VotingPeriodUpdated
-
-    
-
       abis:
         - name: Governor
-          file: ./abis/Governor.json
+          file: Governor/abis/Governor.json
       eventHandlers:
         - event: Initialized(uint256)
           handler: handleInitialized
@@ -182,7 +179,7 @@ dataSources:
           handler: handleVotingDelayUpdated
         - event: VotingPeriodUpdated(uint256,uint256)
           handler: handleVotingPeriodUpdated
-      file: ./src/governor.ts
+      file: Governor/Governor.wasm
   - kind: ethereum
     name: Treasury
     network: blast-testnet
@@ -207,7 +204,7 @@ dataSources:
         - TreasuryUpgraded
       abis:
         - name: Treasury
-          file: ./abis/Treasury.json
+          file: Treasury/abis/Treasury.json
       eventHandlers:
         - event: DelayUpdated(uint256,uint256)
           handler: handleDelayUpdated
@@ -229,7 +226,7 @@ dataSources:
           handler: handleTransactionScheduled
         - event: Upgraded(address)
           handler: handleUpgraded
-      file: ./src/treasury.ts
+      file: Treasury/Treasury.wasm
   - kind: ethereum
     name: SoulboundToken
     network: blast-testnet
@@ -253,7 +250,7 @@ dataSources:
         - SoulboundToken
       abis:
         - name: SoulboundToken
-          file: ./abis/SoulboundToken.json
+          file: SoulboundToken/abis/SoulboundToken.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -269,4 +266,4 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/soulbound-token.ts
+      file: SoulboundToken/SoulboundToken.wasm
